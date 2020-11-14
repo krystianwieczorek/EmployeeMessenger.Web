@@ -32,7 +32,7 @@ import { registerPage } from "../../common/routes/registerPage";
 import { pageRefresher } from "../../helpers/pageRefresher";
 import { loggedUserDetails } from "../../api/loggedUserDetails";
 import { useDispatch } from "react-redux";
-import { loggedUserAction } from "../../store/actions/loggedUserAction";
+import { loggInAction } from "../../store/actions/loggInAction";
 import { AddNewWorkspace } from "../workspace/AddNewWorkspace";
 import { AddNewChannel } from "../channel/AddNewChannel";
 import MenuItem from "@material-ui/core/MenuItem";
@@ -62,15 +62,15 @@ export const Layout = () => {
     });
   }, []);
 
-  // useEffect(() => {
-  //   if (localStorage.getItem("token") != null) {
-  //     setAuthUser(true);
-  //     loggedUserDetails().then((response) => {
-  //       setLoggedUser(response.data.firstName);
-  //       dispatch(loggedUserAction(response.data));
-  //     });
-  //   }
-  // }, [isAuthUser, dispatch]);
+  useEffect(() => {
+    if (localStorage.getItem("token") != null) {
+      dispatch(loggInAction());
+      setAuthUser(true);
+      // loggedUserDetails().then((response) => {
+      //   setLoggedUser(response.data.firstName);
+      // });
+    }
+  }, [isAuthUser, dispatch]);
 
   const handleDrawerOpen = () => {
     setOpen(true);
